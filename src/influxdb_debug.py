@@ -1,3 +1,4 @@
+from featurestoresdk.feature_store_sdk import FeatureStoreSdk
 from influxdb_client import InfluxDBClient
 
 def debug_influxdb(fs_sdk):
@@ -28,5 +29,7 @@ def debug_influxdb(fs_sdk):
         client.close()
     except Exception as e:
         print(f"InfluxDB Debug Error: {str(e)}")
+
+fs_sdk = FeatureStoreSdk()
 
 debug_influxdb(fs_sdk)
