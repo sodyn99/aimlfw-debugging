@@ -1,12 +1,12 @@
-### 1. Clone
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/sodyn99/aimlfw-debugging.git Debugging
 ```
 
-### 2. yaml 수정
+### 2. Modify the YAML File
 
-`debug-pod.yaml` 파일 수정
+Edit the `config/debug-pod.yaml` file:
 
 ```yaml
   env:
@@ -15,17 +15,17 @@ git clone https://github.com/sodyn99/aimlfw-debugging.git Debugging
   - name: INFLUXDB_PORT
     value: "8086"
   - name: INFLUXDB_TOKEN
-    value: "sPEfOtervRYoveYcQiMO" # influxdb token 수정
+    value: "sPEfOtervRYoveYcQiMO" # Update the InfluxDB token / Leave it as is for adaptive use
 ```
 
-### 3. Debugging 파일 생성
+### 3. Create a Debugging File
 
-`Debugging/src` 디렉토리에 `~.py` 파일 생성
+Create a `~.py` file in the `Debugging/src` directory.
 
-### 4. 실행
+### 4. Execute
 
 ```bash
-./apply.sh
+./deploy.sh
 ```
 
 ```bash
