@@ -2,10 +2,10 @@ from featurestoresdk.feature_store_sdk import FeatureStoreSdk
 from influxdb_client import InfluxDBClient
 import os
 
-INFLUXDB_HOST = os.getenv('INFLUXDB_HOST', 'my-release-influxdb.default')
-INFLUXDB_PORT = os.getenv('INFLUXDB_PORT', '8086')
+INFLUXDB_HOST = os.getenv('INFLUXDB_HOST')
+INFLUXDB_PORT = os.getenv('INFLUXDB_PORT')
 
-INFLUXDB_TOKEN = os.getenv('INFLUXDB_TOKEN', 'sPEfOtervRYoveYcQiMO') # Token
+INFLUXDB_TOKEN = os.getenv('INFLUXDB_TOKEN')
 INFLUXDB_ORG = os.getenv('INFLUXDB_ORG', 'primary')
 
 fs_sdk = FeatureStoreSdk()

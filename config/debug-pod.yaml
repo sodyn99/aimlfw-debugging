@@ -21,5 +21,5 @@ spec:
     - name: INFLUXDB_PORT
       value: "8086"
     - name: INFLUXDB_TOKEN
-      value: None
+      value: 'sPEfOtervRYoveYcQiMO'
   restartPolicy: Never
