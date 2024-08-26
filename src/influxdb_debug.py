@@ -1,11 +1,20 @@
 from featurestoresdk.feature_store_sdk import FeatureStoreSdk
 from influxdb_client import InfluxDBClient
 
+fs_sdk = FeatureStoreSdk()
+
+print("\n\033[92mFeature Store Configuration:\033[0m")
+print("Database Name:", fs_sdk.feature_store_db_name)
+print("IP Address:", fs_sdk.feature_store_ip)
+print("Port:", fs_sdk.feature_store_port)
+print("Username:", fs_sdk.feature_store_username)
+print("Password:", fs_sdk.feature_store_password)
+
 def debug_influxdb(fs_sdk):
     try:
-        client = InfluxDBClient(url=f"http://{fs_sdk.feature_store_ip}:{fs_sdk.feature_store_port}",
-                                token=fs_sdk.feature_store_password,
-                                org=fs_sdk.feature_store_username)
+        client = InfluxDBClient(url=f"http://my-release-influxdb.default:8086",
+                                token='sPEfOtervRYoveYcQiMO',
+                                org='primary')
 
         query_api = client.query_api()
 
@@ -29,7 +38,5 @@ def debug_influxdb(fs_sdk):
         client.close()
     except Exception as e:
         print(f"InfluxDB Debug Error: {str(e)}")
-
-fs_sdk = FeatureStoreSdk()
 
 debug_influxdb(fs_sdk)
