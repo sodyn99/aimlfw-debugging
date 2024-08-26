@@ -8,14 +8,12 @@ def debug_cassandra(fs_sdk):
         cluster = Cluster([fs_sdk.feature_store_ip], port=fs_sdk.feature_store_port, auth_provider=auth_provider)
         session = cluster.connect(fs_sdk.feature_store_db_name)
 
-        # 테이블 목록 확인
         rows = session.execute("SELECT table_name FROM system_schema.tables WHERE keyspace_name = %s", [fs_sdk.feature_store_db_name])
         print("Tables in keyspace:")
         for row in rows:
             print(row.table_name)
 
-        # 특정 테이블의 데이터 샘플 확인
-        table_name = "kt_train"  # 실제 테이블 이름으로 변경
+        table_name = "kt_train"  # Please replace with the table name you want to debug
         rows = session.execute(f"SELECT * FROM {table_name} LIMIT 5")
         print(f"\nSample data from {table_name}:")
         for row in rows:

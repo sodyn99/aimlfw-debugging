@@ -4,7 +4,19 @@
 git clone https://github.com/sodyn99/aimlfw-debugging.git Debugging
 ```
 
-### 2. Training Manager 생성
+### 2. yaml 수정
+
+`debug-pod.yaml` 파일 수정
+
+```yaml
+  env:
+  - name: INFLUXDB_HOST
+    value: "my-release-influxdb.default"
+  - name: INFLUXDB_PORT
+    value: "8086"
+  - name: INFLUXDB_TOKEN
+    value: "sPEfOtervRYoveYcQiMO" # influxdb token 수정
+```
 
 ### 3. Debugging 파일 생성
 
@@ -20,4 +32,4 @@ git clone https://github.com/sodyn99/aimlfw-debugging.git Debugging
 ./debug.sh -f ~.py
 ```
 
-![스크린샷 2024-08-25 022103](https://github.com/user-attachments/assets/9e60bbc9-2594-4b02-b7ce-073dde978d21)
+![screenshot 1](/assets/screenshot_1.png)

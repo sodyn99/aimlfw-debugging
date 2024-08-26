@@ -17,9 +17,9 @@ spec:
         while true; do sleep 30; done
     env:
     - name: INFLUXDB_HOST
-      value: "10.103.220.126"
+      value: "my-release-influxdb.default"
     - name: INFLUXDB_PORT
       value: "8086"
     - name: INFLUXDB_TOKEN
-      value: "sPEfOtervRYoveYcQiMO"
+      value: ""
   restartPolicy: Never

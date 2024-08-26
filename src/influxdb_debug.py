@@ -1,42 +1,44 @@
 from featurestoresdk.feature_store_sdk import FeatureStoreSdk
 from influxdb_client import InfluxDBClient
+import os
+
+INFLUXDB_HOST = os.getenv('INFLUXDB_HOST', 'my-release-influxdb.default')
+INFLUXDB_PORT = os.getenv('INFLUXDB_PORT', '8086')
+
+INFLUXDB_TOKEN = os.getenv('INFLUXDB_TOKEN', 'sPEfOtervRYoveYcQiMO') # Token
+INFLUXDB_ORG = os.getenv('INFLUXDB_ORG', 'primary')
 
 fs_sdk = FeatureStoreSdk()
 
-print("\n\033[92mFeature Store Configuration:\033[0m")
-print("Database Name:", fs_sdk.feature_store_db_name)
-print("IP Address:", fs_sdk.feature_store_ip)
-print("Port:", fs_sdk.feature_store_port)
-print("Username:", fs_sdk.feature_store_username)
-print("Password:", fs_sdk.feature_store_password)
-
 def debug_influxdb(fs_sdk):
     try:
-        client = InfluxDBClient(url=f"http://my-release-influxdb.default:8086",
-                                token='sPEfOtervRYoveYcQiMO',
-                                org='primary')
+        client = InfluxDBClient(url=f"http://{INFLUXDB_HOST}:{INFLUXDB_PORT}",
+                                token=INFLUXDB_TOKEN,
+                                org=INFLUXDB_ORG)
 
         query_api = client.query_api()
 
-        # 버킷 목록 확인
         buckets_api = client.buckets_api()
         buckets = buckets_api.find_buckets().buckets
         print("Buckets:")
         for bucket in buckets:
             print(bucket.name)
 
-        # 특정 버킷의 데이터 샘플 확인
-        bucket_name = "your_bucket_name"  # 실제 버킷 이름으로 변경
-        query = f'from(bucket:"{bucket_name}") |> range(start: -1h) |> limit(n:5)'
+        bucket_name = "UAVData" # Please replace with the bucket name you want to debug
+        query = f'from(bucket:"{bucket_name}") |> range(start: -48h, stop: now()) |> filter(fn: (r) => r._measurement == "liveCell") |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")'
         result = query_api.query(query=query)
 
         print(f"\nSample data from {bucket_name}:")
-        for table in result:
-            for record in table.records:
-                print(record)
+
+        if not result:
+            print("\033[91mNo data found.\033[0m")
+        else:
+            for table in result:
+                for record in table.records:
+                    print(record)
 
         client.close()
     except Exception as e:
-        print(f"InfluxDB Debug Error: {str(e)}")
+        print(f"\033[91mInfluxDB Debug Error: {str(e)}\033[0m")
 
 debug_influxdb(fs_sdk)

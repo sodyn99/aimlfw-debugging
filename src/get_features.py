@@ -24,15 +24,12 @@ print("Port:", fs_sdk.feature_store_port)
 print("Username:", fs_sdk.feature_store_username)
 print("Password:", fs_sdk.feature_store_password)
 
-
 try:
     df = fs_sdk.get_features(TRAINING_JOB_NAME, [i for i in FEATURES])
-    # 값이 0인 데이터 제거
     for i in FEATURES:
         df[i] = pd.to_numeric(df[i], errors='coerce')
     print(f"\033[92mData:\033[0m")
     print(df[(df[FEATURES] != 0).any(axis=1)])
-    # 데이터 타입 확인
     print(f"\033[92mData types:\033[0m\n{df.dtypes}\n")
 except Exception as e:
     print(f"\033[91mError accessing data: {str(e)}\033[0m")
