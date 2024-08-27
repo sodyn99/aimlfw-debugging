@@ -69,7 +69,7 @@ def get_node_ip():
 def test_istio(node_ip, node_port, model_name, namespace, data):
     url = f"http://{node_ip}:{node_port}/v1/models/{model_name}:predict"
     headers = {
-        'Host': f"{model_name}.{namespace}.example.com",
+        'Host': f"{model_name}.{namespace}.svc.cluster.local", # Required for Istio routing
         'Content-Type': 'application/json'
     }
     try:
