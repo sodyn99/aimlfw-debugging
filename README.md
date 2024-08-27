@@ -6,7 +6,7 @@ git clone https://github.com/sodyn99/aimlfw-debugging.git Debugging
 
 ### 2. Modify the YAML File
 
-Edit the `config/debug-pod.yaml` file:
+Edit the `config/debug-pod-template.yaml` file:
 
 ```yaml
   env:
