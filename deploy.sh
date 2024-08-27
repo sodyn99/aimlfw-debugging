@@ -12,19 +12,26 @@ kubectl apply -f config/knative-role.yaml
 kubectl apply -f config/istio-role.yaml
 kubectl apply -f config/debug-pod.yaml
 
-# echo '_debug_sh_complete() {
-#     local cur_word prev_word opts
-#     cur_word="${COMP_WORDS[COMP_CWORD]}"
-#     prev_word="${COMP_WORDS[COMP_CWORD-1]}"
+echo '_debug_sh_complete() {
+    local cur_word prev_word opts
+    cur_word="${COMP_WORDS[COMP_CWORD]}"
+    prev_word="${COMP_WORDS[COMP_CWORD-1]}"
 
-#     # src/ 디렉토리에서 파일명만 추출
-#     opts=$(compgen -f '$(pwd)'/src/ | xargs -n 1 basename)
+    case "$prev_word" in
+        -f)
+            opts=$(find "$(pwd)/src" -maxdepth 1 -type f -printf "%f\n")
+            ;;
+        *)
+            opts="-f"
+            ;;
+    esac
 
-#     COMPREPLY=($(compgen -W "${opts}" -- "${cur_word}"))
-#     return 0
-# }
+    COMPREPLY=($(compgen -W "${opts}" -- "${cur_word}"))
+    return 0
+}
 
-# complete -F _debug_sh_complete '$(pwd)'/debug.sh' >> ~/.bashrc
+complete -F _debug_sh_complete ./debug.sh' >> ~/.bashrc
 
-# source ~/.bashrc
-# kubectl delete pod debug-pod
+echo -e "\e[34mPlease restart your terminal or run 'source ~/.bashrc'.\e[0m"
+
+echo -e "\e[32mDeployment complete.\e[0m"
