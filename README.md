@@ -25,11 +25,13 @@ Create a `~.py` file in the `Debugging/src` directory.
 ### 4. Execute
 
 ```bash
-./deploy.sh
+./deploy.sh  # Use the -p flag to deploy only the debug pod
 ```
 
 ```bash
 ./debug.sh -f ~.py
 ```
+
+\* Run `auto_completion.sh` to enable auto-completion for the `./debug.sh` script.
 
 ![screenshot 1](/assets/screenshot_1.png)

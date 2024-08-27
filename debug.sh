@@ -20,8 +20,5 @@ while getopts ":f:" opt; do
   esac
 done
 
-# 파일 복사
-kubectl cp src/$DEBUG_FILE debug-pod:/app_run/$DEBUG_FILE
-
 # 파일 실행
-kubectl exec -it debug-pod -- python3 /app_run/$DEBUG_FILE
+kubectl exec -it debug-pod -- python3 /app_run/src/$DEBUG_FILE

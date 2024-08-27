@@ -1,4 +1,15 @@
-# kubectl create namespace debugging
+#!/bin/bash
+CURRENT_DIR=$(pwd)
+
+if [[ "$1" == "-p" ]]; then
+    sed "s|<HOST_PATH>|$CURRENT_DIR|g" config/debug-pod-template.yaml > config/debug-pod-deployment.yaml
+    kubectl apply -f config/debug-pod-deployment.yaml
+    if [[ $? -eq 0 ]]; then
+        echo -e "\e[32mDeployment complete.\e[0m"
+    fi
+    exit 0
+fi
+
 kubectl apply -f config/secret-reader-role.yaml
 kubectl apply -f config/secret-reader-rolebinding-1.yaml
 kubectl create serviceaccount debug-sa -n default
@@ -10,28 +21,10 @@ kubectl apply -f config/istio-virtualservice-rbac.yaml
 kubectl apply -f config/service-list-role.yaml
 kubectl apply -f config/knative-role.yaml
 kubectl apply -f config/istio-role.yaml
-kubectl apply -f config/debug-pod.yaml
 
-echo '_debug_sh_complete() {
-    local cur_word prev_word opts
-    cur_word="${COMP_WORDS[COMP_CWORD]}"
-    prev_word="${COMP_WORDS[COMP_CWORD-1]}"
+sed "s|<HOST_PATH>|$CURRENT_DIR|g" config/debug-pod-template.yaml > config/debug-pod-deployment.yaml
+kubectl apply -f config/debug-pod-deployment.yaml
 
-    case "$prev_word" in
-        -f)
-            opts=$(find "$(pwd)/src" -maxdepth 1 -type f -printf "%f\n")
-            ;;
-        *)
-            opts="-f"
-            ;;
-    esac
-
-    COMPREPLY=($(compgen -W "${opts}" -- "${cur_word}"))
-    return 0
-}
-
-complete -F _debug_sh_complete ./debug.sh' >> ~/.bashrc
-
-echo -e "\e[34mPlease restart your terminal or run 'source ~/.bashrc'.\e[0m"
-
-echo -e "\e[32mDeployment complete.\e[0m"
+if [[ $? -eq 0 ]]; then
+    echo -e "\e[32mDeployment complete.\e[0m"
+fi
