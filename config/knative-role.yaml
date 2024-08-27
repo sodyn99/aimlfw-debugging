@@ -1,0 +1,23 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: kserve-test
+  name: knative-service-reader
+rules:
+- apiGroups: ["serving.knative.dev"]
+  resources: ["services"]
+  verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: debug-sa-knative-service-reader
+  namespace: kserve-test
+subjects:
+- kind: ServiceAccount
+  name: debug-sa
+  namespace: default
+roleRef:
+  kind: Role
+  name: knative-service-reader
+  apiGroup: rbac.authorization.k8s.io
