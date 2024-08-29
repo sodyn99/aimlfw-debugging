@@ -5,12 +5,8 @@ kubernetes
 boto3
 botocore
 tensorflow==2.8.0
-matplotlib
-pandas
-psutil
-scikit-learn
-influxdb_client
-codecarbon
-importlib_resources
 /SDK/featurestoresdk_main/.
 /SDK/modelmetricssdk_main/.
+pandas
+psutil
+influxdb_client

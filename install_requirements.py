@@ -3,6 +3,7 @@ import sys
 
 def print_color(text, color):
     colors = {
+        'blue': '\033[94m',
         'green': '\033[92m',
         'red': '\033[91m',
         'reset': '\033[0m'
@@ -28,6 +29,6 @@ def install_requirements():
 
 if __name__ == "__main__":
     if install_requirements():
-        print_color("Press Ctrl+C to complete the deployment.", "green")
+        print_color("Press Ctrl+C to complete the deployment.", "blue")
     else:
         print_color("There was a problem during installation. Please check the logs and resolve the issues.", "red")

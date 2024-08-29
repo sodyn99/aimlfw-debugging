@@ -7,17 +7,17 @@ spec:
   containers:
   - name: debug-container
     # image: traininghost/pipelineimage:latest
-    image: python:3.8-slim-bookworm
+    image: python:3.12.5-slim-bookworm
     imagePullPolicy: IfNotPresent
-    command: ["/bin/bash"]
+    command: ["/bin/bash", "-c"]
     args:
-      - "-c"
       - |
-        apt-get update && apt-get install -y curl git && \
-        git clone -b g-release "https://gerrit.o-ran-sc.org/r/aiml-fw/athp/sdk/feature-store" /SDK/featurestoresdk_main
-        git clone -b g-release "https://gerrit.o-ran-sc.org/r/aiml-fw/athp/sdk/model-storage" /SDK/modelmetricssdk_main
-        python3 /app_run/src/install_requirements.py
+        cp /app_run/init_script.sh /tmp/init_script.sh &&
+        chmod +x /tmp/init_script.sh &&
+        /tmp/init_script.sh
         while true; do sleep 30; done
+    ports:
+    - containerPort: 10000
     volumeMounts:
     - name: app-volume
       mountPath: /app_run

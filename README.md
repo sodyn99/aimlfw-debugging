@@ -34,4 +34,12 @@ Create a `~.py` file in the `Debugging/src` directory.
 
 \* Run `auto_completion.sh` to enable auto-completion for the `./debug.sh` script.
 
-![screenshot 1](/assets/screenshot_1.png)
+### 5. VSCode
+
+Open the `Debugging/src` directory in VSCode.
+
+```bash
+kubectl port-forward pod/debug-pod 10000:10000
+```
+
+Connect to [http://localhost:10000](http://localhost:10000).
