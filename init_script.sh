@@ -15,6 +15,7 @@ echo "Setting up Conda environment..." > /tmp/progress_state
 export PATH="/opt/conda/bin:$PATH"
 echo 'export PATH="/opt/conda/bin:$PATH"' >> /root/.bashrc
 . /opt/conda/etc/profile.d/conda.sh
+conda config --set auto_activate_base false
 conda init bash
 . /root/.bashrc
 conda create -n aimlfw python=3.8 -y
