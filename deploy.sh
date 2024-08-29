@@ -66,7 +66,7 @@ function deploy_pod() {
     wait_for_initialization
 
     if [[ $? -eq 0 ]]; then
-        echo -e "\e[32mDeployment complete.\e[0m"
+        echo -e "\e[32mDeployment complete!\e[0m"
     else
         echo -e "\e[31mDeployment failed.\e[0m"
         exit 1
