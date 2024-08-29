@@ -1,6 +1,7 @@
+src/__pycache__/
+src/sodyn99/__pycache__/
 config/debug-pod-deployment.yaml
 src/kt_pipeline.py
-src/sdk.py
 src/data.py
 src/influxdb_debug.py
 src/cassandra_debug.py
