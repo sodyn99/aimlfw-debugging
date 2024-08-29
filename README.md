@@ -36,7 +36,7 @@ Create a `~.py` file in the `Debugging/src` directory.
 
 ### 5. VSCode
 
-Open the `Debugging/src` directory in VSCode.
+Open the `Debugging/src` directory in code-server.
 
 ```bash
 kubectl port-forward pod/debug-pod 10000:10000
