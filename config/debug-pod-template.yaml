@@ -6,18 +6,23 @@ spec:
   serviceAccountName: debug-sa
   containers:
   - name: debug-container
-    image: traininghost/pipelineimage:latest
+    # image: traininghost/pipelineimage:latest
+    image: python:3.8-slim-bookworm
     imagePullPolicy: IfNotPresent
     command: ["/bin/bash"]
     args:
       - "-c"
       - |
-        pip install --upgrade pip
-        pip install cassandra-driver influxdb_client
+        apt-get update && apt-get install -y curl git && \
+        git clone -b g-release "https://gerrit.o-ran-sc.org/r/aiml-fw/athp/sdk/feature-store" /SDK/featurestoresdk_main
+        git clone -b g-release "https://gerrit.o-ran-sc.org/r/aiml-fw/athp/sdk/model-storage" /SDK/modelmetricssdk_main
+        python3 /app_run/src/install_requirements.py
         while true; do sleep 30; done
     volumeMounts:
     - name: app-volume
       mountPath: /app_run
+    - name: sdk-volume
+      mountPath: /SDK
     env:
     - name: INFLUXDB_HOST
       value: "my-release-influxdb.default"
@@ -29,4 +34,6 @@ spec:
   - name: app-volume
     hostPath:
       path: "<HOST_PATH>"
+  - name: sdk-volume
+    emptyDir: {}
   restartPolicy: Never
